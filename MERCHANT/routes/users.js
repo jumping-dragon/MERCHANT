@@ -81,7 +81,7 @@ router.post('/register', (req, res) => {
 
 
 router.post('/trade', (req, res) => {
-  const user = req.user;
+  let user = req.user;
   const {buy_currency,buy_amount,sell_currency,sell_amount} = req.body;
   let errors = [];
    if (!buy_currency || !buy_amount || !sell_currency || !sell_amount) {
@@ -125,7 +125,7 @@ router.post('/topup', (req, res) => {
 
   if(errors.length <= 0){
   User.findOneAndUpdate(
-  	{ name : req.user.name },  // search query
+  	{ email : req.user.email },  // search query
   	{ $push: { "wallet" : { currency: new_currency, amount: new_amount } } } , 
   	{ new: true,                       // return updated doc
       runValidators: true              // validate before update

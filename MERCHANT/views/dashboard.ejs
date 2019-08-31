@@ -36,7 +36,7 @@
                 </tr>
               </thead>
               <tbody>
-              	<% for (let i = 0; i < user.wallet.length; i++) { %>
+              	<% for (var i = 0; i < user.wallet.length; i++) { %>
                 <tr>
                   <th scope="row"><%i%></th>
                   <td><%= user.wallet[i].amount %></td>
@@ -155,7 +155,7 @@
                 </tr>
               </thead>
               <tbody>
-                <% for (let a = 0; a < user.trade.length; a++) { %>
+                <% for (var a = 0; a < user.trade.length; a++) { %>
                 <tr>
                   <th scope="row"><%a%></th>
                   <td><%= user.trade[a].buy_amount +" "+ user.trade[a].buy_currency %></td>

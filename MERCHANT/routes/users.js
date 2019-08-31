@@ -76,27 +76,30 @@ router.post('/register', (req, res) => {
   }
 });
 
-router.post('/transfer', (req, res) => {
+router.post('/topup', (req, res) => {
   const { new_currency,new_amount } = req.body;
   let errors = [];
-  console.log("You Received " + new_amount +" "+ new_currency);
-  User.findOneAndUpdate(
-    {
-      name : req.user.name // search query
-    }, 
-    { $push: { "wallet" : { currency: new_currency, amount: new_amount } } } , 
-    {
-      new: true,                       // return updated doc
+  if(new_currency.length == 3 || new_amount != Number ){
+     errors.push({ msg: 'Email already exists' });
+  }else{
+  	User.findOneAndUpdate(
+  	{ name : req.user.name },  // search query
+  	{ $push: { "wallet" : { currency: new_currency, amount: new_amount } } } , 
+  	{ new: true,                       // return updated doc
       runValidators: true              // validate before update
-    })
-  .then()
-  .catch(err => {
-    console.error(err)
-  })
-   res.redirect('/dashboard');
+ 	})
+  	.then()
+  	.catch(err => {
+  		console.error(err)
+  	})
+	console.log("You Received " + new_amount +" "+ new_currency);
+  }
+	res.redirect('/dashboard');
 });
 
-
+router.post('/trade', (req, res) => {
+   res.send('trade is not done');
+});
 
 // Login
 router.post('/login', (req, res, next) => {

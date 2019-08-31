@@ -20,7 +20,15 @@ const UserSchema = new mongoose.Schema({
   wallet: [
   {currency: String ,
    amount: Number }
+  ],
+  trade: [
+  {buy_currency: String ,
+   buy_amount: Number,
+   sell_currency: String,
+   sell_amount: Number
+  }
   ]
+
 });
 
 const User = mongoose.model('User', UserSchema);

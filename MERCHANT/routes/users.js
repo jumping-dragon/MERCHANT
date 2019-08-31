@@ -76,25 +76,66 @@ router.post('/register', (req, res) => {
   }
 });
 
+
+router.post('/trade', (req, res) => {
+  const user = req.user;
+  const {buy_currency,buy_amount,sell_currency,sell_amount} = req.body;
+  let errors = [];
+   if (!buy_currency || !buy_amount || !sell_currency || !sell_amount) {
+    errors.push({ msg: 'Please enter all fields' });
+   }
+	if ( buy_amount < 0 || sell_amount < 0) {
+    errors.push({ msg: 'Invalid Trade Amount' });
+   }
+  if(errors.length <= 0){
+  User.findOneAndUpdate(
+  	{ name : req.user.name ,  },  // search query
+  	{ $push: { "trade" : { 
+  		buy_currency: buy_currency, 
+  		buy_amount: buy_amount, 
+  		sell_currency:sell_currency,
+  		sell_amount:sell_amount } } }  , 
+  	{ runValidators: true    })        // validate before update
+  .then(console.log("You Traded " + sell_amount +" "+ sell_currency))
+  .catch(err => {
+  	console.error(err)
+  })	
+  }else{
+  	console.log(errors[0].msg);
+  };
+res.redirect('/dashboard');
+});
+
+
+
+
 router.post('/topup', (req, res) => {
   const { new_currency,new_amount } = req.body;
   let errors = [];
+  if (!new_amount || !new_currency) {
+    errors.push({ msg: 'Please enter all fields' });
+  }
+
+  if (new_currency.length > 3) {
+    errors.push({ msg: 'Invalid Input of Currency' });
+  }
+
+  if(errors.length <= 0){
   User.findOneAndUpdate(
   	{ name : req.user.name },  // search query
   	{ $push: { "wallet" : { currency: new_currency, amount: new_amount } } } , 
   	{ new: true,                       // return updated doc
       runValidators: true              // validate before update
   })
-  .then()
+  .then(console.log("You Received " + new_amount +" "+ new_currency))
   .catch(err => {
   	console.error(err)
-  })
-  console.log("You Received " + new_amount +" "+ new_currency);
+  })	
+  }else{
+  	console.log(errors[0].msg);
+  }
+  
   res.redirect('/dashboard');
-});
-
-router.post('/trade', (req, res) => {
-   res.send('trade is not done');
 });
 
 // Login

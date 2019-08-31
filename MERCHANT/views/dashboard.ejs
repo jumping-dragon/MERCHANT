@@ -8,16 +8,16 @@
   <body>
     <div class="container">
       <div class="row mt-3">
-      <h1>My Fortune</h1>
+      <h1 class="mt-4">My Fortune </h1>
       </div>
       <div class="row mt-3">
         <div class="col-4">
           <div class="card" style="width: 18rem;">
-            <img src="img/redmascot.jpg" class="card-img-top">
+            <img src="img/profile.png" class="card-img-top">
             <div class="card-body">
-              <h5 class="card-title" id="1">Night Shots</h5>
-              <p class="card-text">To Give up is not a way~</p>
-              <a href="#" class="btn btn-primary">Hate</a>
+              <h5 class="card-title" id="1"><%= user.email %></h5>
+              <p class="card-text"><%= user.name %></p>
+              <a href="#" class="btn btn-primary">Settings</a>
             </div>
           </div>
         </div>
@@ -36,7 +36,7 @@
                 </tr>
               </thead>
               <tbody>
-              	<% for (var i = 0; i < user.wallet.length; i++) { %>
+              	<% for (let i = 0; i < user.wallet.length; i++) { %>
                 <tr>
                   <th scope="row"><%i%></th>
                   <td><%= user.wallet[i].amount %></td>
@@ -49,26 +49,29 @@
           </div>
         </div>
       </div>
+      <% include ./partials/messages %>
       <div class="row mt-3">
-        <div class="col-12">
-          <h1 class="display-4 text-center">TRANSFER</h1>
-          <form action="/users/topup" method="POST">
+        <div class="col-6">
+          <!-- Transfer Form -->
+          <h1 class="display-4 text-center">Trade</h1>
+          <form action="/users/trade" method="POST">
             <div class="form-group">
               <label for="currency">Buy Currency </label>
               <input
               type="text"
-              id="new_currency"
-              name="new_currency"
+              id="buy_currency"
+              name="buy_currency"
               class="form-control"
+              style="text-transform: uppercase;"
               placeholder="Enter Currency"
               />
             </div>
             <div class="form-group">
-              <label for="password">Buy Price</label>
+              <label for="password">Buy Amount</label>
               <input
               type="number"
-              id="new_amount"
-              name="new_amount"
+              id="buy_amount"
+              name="buy_amount"
               class="form-control"
               placeholder="Enter Amount"
               />
@@ -77,16 +80,21 @@
               <label for="auth">Sell Currency</label>
               <input
               type="text"
+              id="sell_currency"
+              name="sell_currency"
               class="form-control"
-              placeholder="Enter Bid Price"
+              style="text-transform: uppercase;"
+              placeholder="Enter Amount"
               />
             </div>
             <div class="form-group">
-              <label for="auth">Sell Price</label>
+              <label for="auth">Sell Price (For<strong> 1.00</strong> Unit of <strong>Buying Currency</strong>)</label>
               <input
               type="number"
+              id="sell_amount"
+              name="sell_amount"
               class="form-control"
-              placeholder="Enter Bid Price"
+              placeholder="Enter Amount"
               />
             </div>
             <div class="form-group">
@@ -97,14 +105,13 @@
               placeholder="Enter Key"
               />
             </div>
-            <button type="submit" class="btn btn-primary btn-block">TRANSFER</button>
+            <button type="submit" class="btn btn-primary btn-block">TRADE</button>
           </form>
-        </div> <!-- Topup Form -->
-      </div>
-      <div class="row mt-3">
-        <div class="col">
+        </div> 
+        <div class="col-6">
+          <!-- Topup Form -->
           <h1 class="display-4">TOP UP!</h1>
-          <form action="/users/trade" method="POST">
+          <form action="/users/topup" method="POST">
             <div class="form-group">
               <label for="currency">Currency</label>
               <input
@@ -112,6 +119,7 @@
               id="new_currency"
               name="new_currency"
               class="form-control"
+              style="text-transform: uppercase;"
               placeholder="Enter Currency"
               />
             </div>
@@ -125,9 +133,42 @@
               placeholder="Enter Amount"
               />
             </div>
+             <div class="form-group">
+              <label for="password">Receipt PIN Authentication</label>
+              <input
+              type="password"
+              class="form-control"
+              placeholder="Enter Amount"
+              />
+            </div>
             <button type="submit" class="btn btn-primary btn-block">TOP UP</button>
           </form>
+          <hr>
+          <h1>Current Trades</h1>
+          <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>BUYING</th>
+                  <th>TRADING</th>
+                  <th>AMOUNT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% for (let a = 0; a < user.trade.length; a++) { %>
+                <tr>
+                  <th scope="row"><%a%></th>
+                  <td><%= user.trade[a].buy_amount +" "+ user.trade[a].buy_currency %></td>
+                  <td><%= user.trade[a].sell_amount * user.trade[a].buy_amount +" "+ user.trade[a].sell_currency %></td>
+                  <td><%= user.trade[a]._id %></td>
+                </tr>
+                <% } %>
+              </tbody>
+            </table>
         </div>
+      </div>
+      <div class="row mt-3">
+        
         <div class="col">
           
         </div>

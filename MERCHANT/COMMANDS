@@ -1,0 +1,11 @@
+EDIT PROXY{
+sudo nano /etc/nginx/nginx.conf
+}
+
+check running ports{
+	sudo netstat -tulpn
+}
+
+kill running ports{
+	sudo fuser -k 80/tcp
+}

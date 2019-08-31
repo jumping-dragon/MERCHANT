@@ -17,6 +17,9 @@ const UserSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   },
+  device_id: {
+    type: String,
+  },
   wallet: [
   {currency: String ,
    amount: Number }

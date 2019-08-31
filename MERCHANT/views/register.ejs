@@ -50,7 +50,17 @@
             value="<%= typeof password2 != 'undefined' ? password2 : '' %>"
           />
         </div>
-        
+        <div class="form-group">
+          <label for="device_id">DEVICE ID</label>
+          <input
+            type="string"
+            id="device_id"
+            name="device_id"
+            class="form-control"
+            placeholder="Insert Device ID"
+            value="<%= typeof device_id != 'undefined' ? device_id : '' %>"
+          />
+        </div>
         <button type="submit" class="btn btn-primary btn-block">
           Register
         </button>

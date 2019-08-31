@@ -79,19 +79,18 @@ router.post('/register', (req, res) => {
 router.post('/topup', (req, res) => {
   const { new_currency,new_amount } = req.body;
   let errors = [];
-  
-  	User.findOneAndUpdate(
+  User.findOneAndUpdate(
   	{ name : req.user.name },  // search query
   	{ $push: { "wallet" : { currency: new_currency, amount: new_amount } } } , 
   	{ new: true,                       // return updated doc
       runValidators: true              // validate before update
- 	})
-  	.then()
-  	.catch(err => {
-  		console.error(err)
-  	})
-	console.log("You Received " + new_amount +" "+ new_currency);
-	res.redirect('/dashboard');
+  })
+  .then()
+  .catch(err => {
+  	console.error(err)
+  })
+  console.log("You Received " + new_amount +" "+ new_currency);
+  res.redirect('/dashboard');
 });
 
 router.post('/trade', (req, res) => {

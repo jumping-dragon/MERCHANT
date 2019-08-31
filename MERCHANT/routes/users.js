@@ -79,9 +79,7 @@ router.post('/register', (req, res) => {
 router.post('/topup', (req, res) => {
   const { new_currency,new_amount } = req.body;
   let errors = [];
-  if(new_currency.length == 3 || new_amount != Number ){
-     errors.push({ msg: 'Email already exists' });
-  }else{
+  
   	User.findOneAndUpdate(
   	{ name : req.user.name },  // search query
   	{ $push: { "wallet" : { currency: new_currency, amount: new_amount } } } , 
@@ -93,7 +91,6 @@ router.post('/topup', (req, res) => {
   		console.error(err)
   	})
 	console.log("You Received " + new_amount +" "+ new_currency);
-  }
 	res.redirect('/dashboard');
 });
 

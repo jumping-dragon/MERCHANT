@@ -54,7 +54,7 @@
           <h1 class="display-4 text-center">TRANSFER</h1>
           <form action="/users/topup" method="POST">
             <div class="form-group">
-              <label for="currency">Currency</label>
+              <label for="currency">Buy Currency </label>
               <input
               type="text"
               id="new_currency"
@@ -64,13 +64,29 @@
               />
             </div>
             <div class="form-group">
-              <label for="password">Amount</label>
+              <label for="password">Buy Price</label>
               <input
               type="number"
               id="new_amount"
               name="new_amount"
               class="form-control"
               placeholder="Enter Amount"
+              />
+            </div>
+            <div class="form-group">
+              <label for="auth">Sell Currency</label>
+              <input
+              type="number"
+              class="form-control"
+              placeholder="Enter Bid Price"
+              />
+            </div>
+            <div class="form-group">
+              <label for="auth">Sell Price</label>
+              <input
+              type="number"
+              class="form-control"
+              placeholder="Enter Bid Price"
               />
             </div>
             <div class="form-group">

@@ -51,14 +51,29 @@
           />
         </div>
         <div class="form-group">
-          <label for="device_id">DEVICE ID</label>
+          <div class="row">
+            <div class="col-8">
+              <label for="device_id">DEVICE ID</label>
+              <input
+              type="string"
+              id="device_id"
+              name="device_id"
+              class="form-control"
+              placeholder="Insert Device ID"
+              value="<%= typeof device_id != 'undefined' ? device_id : '' %>"
+              />
+            </div>
+            <div class="col-4 text-center align-self-end">
+              <button type="button" class="btn btn-outline-success">Connect</button>
+            </div>
+          </div>
+        </div>
+         <div class="form-group">
+          <label for="device_id">Verify Authentication</label>
           <input
-            type="string"
-            id="device_id"
-            name="device_id"
+            type="password"
             class="form-control"
-            placeholder="Insert Device ID"
-            value="<%= typeof device_id != 'undefined' ? device_id : '' %>"
+            placeholder="Input through OPL"
           />
         </div>
         <button type="submit" class="btn btn-primary btn-block">

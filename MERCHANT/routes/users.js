@@ -92,7 +92,7 @@ router.post('/trade', (req, res) => {
    }
   if(errors.length <= 0){
   User.findOneAndUpdate(
-  	{ name : req.user.name ,  },  // search query
+  	{ email : req.user.email ,  },  // search query
   	{ $push: { "trade" : { 
   		buy_currency: buy_currency, 
   		buy_amount: buy_amount, 
